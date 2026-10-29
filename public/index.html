@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HireMind: AI Job Application Agent</title>
+  <meta name="description" content="An AI agent that scores your resume against a job, tailors it, writes the cover letter and preps you for the interview." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%235b5bf6'/><path d='M9 22V10h3v5h8v-5h3v12h-3v-4.5h-8V22z' fill='white'/></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">H</span>
+      <div>
+        <strong>HireMind</strong>
+        <span class="tagline">AI job application agent</span>
+      </div>
+    </div>
+    <span id="modeBadge" class="badge">Checking…</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>One resume. One job. <span class="accent">A complete application in under a minute.</span></h1>
+      <p>Paste your resume and the job description. The agent scores the fit, rewrites your resume for the role, plans your skill gaps, drafts the cover letter and predicts the interview questions. You can watch each step as it happens.</p>
+    </section>
+
+    <section class="inputs card">
+      <div class="field">
+        <div class="field-head">
+          <label for="resume">Your resume</label>
+          <label class="file-btn">Upload .txt<input type="file" id="resumeFile" accept=".txt,.md,text/plain" hidden /></label>
+        </div>
+        <textarea id="resume" placeholder="Paste your resume text here…" spellcheck="false"></textarea>
+        <span class="count" id="resumeCount">0 words</span>
+      </div>
+      <div class="field">
+        <div class="field-head">
+          <label for="job">Job description</label>
+          <label class="file-btn">Upload .txt<input type="file" id="jobFile" accept=".txt,.md,text/plain" hidden /></label>
+        </div>
+        <textarea id="job" placeholder="Paste the job description here…" spellcheck="false"></textarea>
+        <span class="count" id="jobCount">0 words</span>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="sampleBtn" type="button">Try a sample</button>
+        <button class="btn primary" id="runBtn" type="button">Run the agent →</button>
+      </div>
+      <p class="error" id="error" role="alert" hidden></p>
+    </section>
+
+    <section id="results" class="results" hidden>
+      <div class="grid">
+        <aside class="card trace">
+          <h2>Agent trace</h2>
+          <p class="muted small" id="modeLine"></p>
+          <ol id="steps" class="steps"></ol>
+        </aside>
+
+        <div class="main-col">
+          <div class="card scorecard" id="scorecard" hidden>
+            <div class="ring-wrap">
+              <svg viewBox="0 0 120 120" class="ring" aria-hidden="true">
+                <circle cx="60" cy="60" r="52" class="ring-bg" />
+                <circle cx="60" cy="60" r="52" class="ring-fg" id="ringFg" />
+              </svg>
+              <div class="ring-label"><span id="scoreNum">0</span><small>/100</small></div>
+            </div>
+            <div class="score-info">
+              <h2 id="scoreTitle">Match score</h2>
+              <div class="bars" id="bars"></div>
+              <div class="chips-block">
+                <div><span class="chips-label">Matched</span><div class="chips" id="matched"></div></div>
+                <div><span class="chips-label">Missing</span><div class="chips" id="missing"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card verdict" id="verdict" hidden></div>
+
+          <div class="card deliverables" id="deliverables" hidden>
+            <div class="tabs" role="tablist">
+              <button role="tab" class="tab active" data-tab="tailored">Tailored resume</button>
+              <button role="tab" class="tab" data-tab="gaps">Skill gaps</button>
+              <button role="tab" class="tab" data-tab="coverLetter">Cover letter</button>
+              <button role="tab" class="tab" data-tab="interview">Interview prep</button>
+            </div>
+            <div class="panel" data-panel="tailored"><p class="muted">Waiting for the agent…</p></div>
+            <div class="panel" data-panel="gaps" hidden><p class="muted">Waiting for the agent…</p></div>
+            <div class="panel" data-panel="coverLetter" hidden><p class="muted">Waiting for the agent…</p></div>
+            <div class="panel" data-panel="interview" hidden><p class="muted">Waiting for the agent…</p></div>
+            <div class="panel-actions">
+              <button class="btn ghost" id="downloadBtn" type="button" disabled>Download full report (.md)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">HireMind. Scores come from a deterministic matching engine; the writing comes from the agent. Always review before you send.</footer>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

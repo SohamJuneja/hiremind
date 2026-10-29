@@ -1,0 +1,19 @@
+{
+  "name": "hiremind",
+  "version": "1.0.0",
+  "description": "HireMind: an AI agent that reads your resume and a job description, scores the fit, tailors your resume, writes the cover letter and preps you for the interview.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0"
+  }
+}
